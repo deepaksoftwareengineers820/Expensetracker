@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Expense</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="bg-mesh"></div>
+    <canvas id="stars"></canvas>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <header class="site-header">
+        <h1>📅 <span class="title-text">Monthly View</span></h1>
+        <p class="subtitle">Day-by-Day Breakdown</p>
+    </header>
+
+    <div class="user-topbar" id="userTopbar">
+        <span class="user-badge" id="userBadge"></span>
+        <a href="/" class="nav-pill">⬅ Dashboard</a>
+        <button class="logout-pill" onclick="authLogout()">🚪 Sign Out</button>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3><span class="icon">🗓️</span> Date-wise Expenses</h3>
+
+            <!-- Date Filter -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>From</label>
+                    <input type="date" id="filterFrom">
+                </div>
+                <div class="filter-group">
+                    <label>To</label>
+                    <input type="date" id="filterTo">
+                </div>
+                <div class="filter-group">
+                    <label>Type</label>
+                    <select id="filterType">
+                        <option value="all">All</option>
+                        <option value="expense">Expense only</option>
+                        <option value="income">Income only</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button class="filter-btn" onclick="applyFilter()">🔍 Filter</button>
+                    <button class="filter-btn filter-clear" onclick="clearFilter()">✕ Clear</button>
+                </div>
+            </div>
+
+            <!-- Filter summary -->
+            <div class="filter-summary" id="filterSummary" style="display:none;"></div>
+
+            <div id="monthlyList"></div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (mobile only) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="/">
+            <span class="nav-icon">🏠</span>
+            Dashboard
+        </a>
+        <a href="/monthly.html" class="active">
+            <span class="nav-icon">📅</span>
+            Monthly
+        </a>
+        <button class="nav-logout" onclick="authLogout()">
+            <span class="nav-icon">🚪</span>
+            Sign Out
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+</html>

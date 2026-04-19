@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker — Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="bg-mesh"></div>
+    <canvas id="stars"></canvas>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="auth-wrap">
+
+        <div class="auth-logo">
+            💸 <span class="title-text">Expense Tracker</span>
+        </div>
+
+        <!-- LOGIN -->
+        <div class="auth-card" id="loginPanel">
+            <div class="auth-header">
+                <h2>Welcome back</h2>
+                <p>Sign in to your account</p>
+            </div>
+
+            <div class="input-group">
+                <label>Gmail Address</label>
+                <input type="email" id="loginEmail" placeholder="yourname@gmail.com" autocomplete="email">
+                <span class="field-err" id="loginEmailErr"></span>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <div class="pw-wrap">
+                    <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+                    <button class="pw-eye" type="button" onclick="togglePw('loginPassword',this)">👁</button>
+                </div>
+                <span class="field-err" id="loginPasswordErr"></span>
+            </div>
+
+            <button class="btn-submit" onclick="handleLogin(event)">Sign In</button>
+
+            <p class="auth-switch">Don't have an account?
+                <a href="#" onclick="switchPanel('signup');return false;">Create one →</a>
+            </p>
+        </div>
+
+        <!-- SIGNUP -->
+        <div class="auth-card" id="signupPanel" style="display:none;">
+            <div class="auth-header">
+                <h2>Create account</h2>
+                <p>Join to start tracking expenses</p>
+            </div>
+
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" placeholder="Your full name" autocomplete="name">
+                <span class="field-err" id="signupNameErr"></span>
+            </div>
+            <div class="input-group">
+                <label>Gmail Address</label>
+                <input type="email" id="signupEmail" placeholder="yourname@gmail.com" autocomplete="email">
+                <span class="field-err" id="signupEmailErr"></span>
+            </div>
+            <div class="input-group">
+                <label>Password <span style="color:var(--text-secondary);font-size:0.7rem;font-weight:400;">(min 8 chars)</span></label>
+                <div class="pw-wrap">
+                    <input type="password" id="signupPassword" placeholder="Create a strong password" autocomplete="new-password" oninput="if(typeof checkPwStrength==='function')checkPwStrength(this.value)">
+                    <button class="pw-eye" type="button" onclick="togglePw('signupPassword',this)">👁</button>
+                </div>
+                <div class="pw-bar"><div class="pw-fill" id="pwFill"></div></div>
+                <span class="pw-label" id="pwLabel"></span>
+                <span class="field-err" id="signupPasswordErr"></span>
+            </div>
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <div class="pw-wrap">
+                    <input type="password" id="signupConfirm" placeholder="Re-enter your password" autocomplete="new-password">
+                    <button class="pw-eye" type="button" onclick="togglePw('signupConfirm',this)">👁</button>
+                </div>
+                <span class="field-err" id="signupConfirmErr"></span>
+            </div>
+
+            <button class="btn-submit" onclick="handleSignup(event)">Create Account</button>
+
+            <p class="auth-switch">Already have an account?
+                <a href="#" onclick="switchPanel('login');return false;">Sign in →</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker — Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="bg-mesh"></div>
+    <canvas id="stars"></canvas>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <header class="site-header">
+        <h1>💸 <span class="title-text">Expense Tracker</span></h1>
+        <p class="subtitle">Track · Analyze · Control</p>
+        <p class="welcome-line" id="welcomeLine"></p>
+    </header>
+
+    <!-- Desktop user topbar -->
+    <div class="user-topbar" id="userTopbar">
+        <span class="user-badge" id="userBadge"></span>
+        <a href="/monthly.html" class="nav-pill">📅 Monthly View</a>
+        <button class="logout-pill" onclick="authLogout()">🚪 Sign Out</button>
+    </div>
+
+    <!-- Section navigation bar -->
+    <div class="section-nav" id="sectionNav">
+        <a class="snav-item active" href="#sec-summary" onclick="scrollTo('sec-summary',this)">
+            <span>📊</span> Summary
+        </a>
+        <a class="snav-item" href="#sec-add" onclick="scrollTo('sec-add',this)">
+            <span>➕</span> Add
+        </a>
+        <a class="snav-item" href="#sec-transactions" onclick="scrollTo('sec-transactions',this)">
+            <span>📋</span> Transactions
+        </a>
+        <a class="snav-item" href="#sec-chart" onclick="scrollTo('sec-chart',this)">
+            <span>🍩</span> Chart
+        </a>
+    </div>
+
+    <div class="container">
+
+        <!-- Summary -->
+        <div class="card" id="sec-summary">
+            <div class="summary-card">
+                <div class="summary-stat">
+                    <span class="label">Total Spent</span>
+                    <span class="value" id="expenseTotal">
+                        <span class="currency">₹</span><span id="expenseNum">0.00</span>
+                    </span>
+                </div>
+                <div class="summary-stat">
+                    <span class="label">Total Income</span>
+                    <span class="value income" id="incomeTotal">
+                        <span class="currency">₹</span><span id="incomeNum">0.00</span>
+                    </span>
+                </div>
+                <button class="reset-icon" onclick="resetData()" title="Reset all data">⟳</button>
+            </div>
+        </div>
+
+        <!-- Add Transaction -->
+        <div class="card" id="sec-add">
+            <h3><span class="icon">➕</span> Add Transaction</h3>
+
+            <div class="input-group">
+                <label>Description</label>
+                <input type="text" id="name" placeholder="e.g. Dinner at Barbeque Nation">
+            </div>
+            <div class="input-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="amount" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="input-row-2">
+                <div class="input-group" style="margin:0">
+                    <label>Date</label>
+                    <input type="date" id="date">
+                </div>
+                <div class="input-group" style="margin:0">
+                    <label>Category</label>
+                    <select id="category">
+                        <option value="Food">🍛 Food &amp; Dining</option>
+                        <option value="Travel">✈️ Travel</option>
+                        <option value="Bills">💡 Bills &amp; Utilities</option>
+                        <option value="Shopping">🛍️ Shopping</option>
+                        <option value="Others">📦 Others</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="type-toggle" style="margin-top:16px;">
+                <button class="type-btn active-expense" id="btn-expense" onclick="setType('expense')">
+                    💸 Expense
+                </button>
+                <button class="type-btn" id="btn-income" onclick="setType('income')">
+                    💰 Income
+                </button>
+            </div>
+
+            <button class="btn-submit" id="submitBtn" onclick="addTransaction(event)">
+                Add Transaction
+            </button>
+        </div>
+
+        <!-- Transactions List -->
+        <div class="card" id="sec-transactions">
+            <h3><span class="icon">📋</span> Recent Transactions</h3>
+            <div id="list" class="transaction-list"></div>
+        </div>
+
+        <!-- Chart -->
+        <div class="card" id="sec-chart">
+            <h3><span class="icon">📊</span> Spending Breakdown</h3>
+            <div class="chart-wrap">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation (mobile only) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="#sec-summary" onclick="scrollTo('sec-summary',null);setActiveSnav(this)" class="active">
+            <span class="nav-icon">📊</span>
+            Summary
+        </a>
+        <a href="#sec-add" onclick="scrollTo('sec-add',null);setActiveSnav(this)">
+            <span class="nav-icon">➕</span>
+            Add
+        </a>
+        <a href="#sec-transactions" onclick="scrollTo('sec-transactions',null);setActiveSnav(this)">
+            <span class="nav-icon">📋</span>
+            History
+        </a>
+        <a href="/monthly.html">
+            <span class="nav-icon">📅</span>
+            Monthly
+        </a>
+        <button class="nav-logout" onclick="authLogout()">
+            <span class="nav-icon">🚪</span>
+            Out
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+</html>
